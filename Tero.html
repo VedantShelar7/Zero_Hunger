@@ -374,18 +374,8 @@
   <script type="module">
     // ─── FOOD DATABASE ─────────────────────────────────────────────
     // Values derived from USDA FoodKeeper + ICMSF Arrhenius parameters
-    const FOOD_DB = {
-      "Cooked Rice": { Ea: 50000, base_hours: 6, bacteria: "Bacillus cereus", emoji: "🍚", risk: "medium" },
-      "Dal / Lentils": { Ea: 48000, base_hours: 8, bacteria: "Clostridium perfringens", emoji: "🫘", risk: "medium" },
-      "Chicken Curry": { Ea: 55000, base_hours: 4, bacteria: "Salmonella", emoji: "🍗", risk: "high" },
-      "Leafy Salad": { Ea: 45000, base_hours: 3, bacteria: "E. coli O157", emoji: "🥗", risk: "high" },
-      "Paneer Dish": { Ea: 52000, base_hours: 5, bacteria: "Listeria monocytogenes", emoji: "🧀", risk: "medium" },
-      "Bread / Roti": { Ea: 40000, base_hours: 12, bacteria: "Mold / Bacillus", emoji: "🫓", risk: "low" },
-      "Fish Curry": { Ea: 62000, base_hours: 2, bacteria: "Clostridium botulinum", emoji: "🐟", risk: "critical" },
-      "Vegetable Sabzi": { Ea: 46000, base_hours: 6, bacteria: "E. coli", emoji: "🥦", risk: "medium" },
-      "Biryani": { Ea: 53000, base_hours: 4, bacteria: "Bacillus cereus", emoji: "🍛", risk: "high" },
-      "Samosa / Fried": { Ea: 42000, base_hours: 6, bacteria: "Staphylococcus aureus", emoji: "🥟", risk: "low" }
-    };
+    let FOOD_DB = {};
+    const DEFAULT_FOOD = { Ea: 50000, base_hours: 6, bacteria: "Unknown Pathogen", emoji: "🍽️", risk: "medium" };
 
     // ─── STATE ────────────────────────────────────────────────────
     let state = {
@@ -882,7 +872,37 @@
     }
 
     // Initialize
-    updateUI();
+    async function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get('orderId');
+      
+      if (orderId) {
+        try {
+          const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+          const res = await fetch(`${API_URL}/orders`);
+          const orders = await res.json();
+          const order = orders.find(o => o.id === orderId);
+          
+          if (order && order.food) {
+             FOOD_DB = { [order.food]: DEFAULT_FOOD };
+             state.selectedFood = order.food;
+          } else {
+             FOOD_DB = { "Unknown Item": DEFAULT_FOOD };
+             state.selectedFood = "Unknown Item";
+          }
+        } catch(e) {
+          console.error("Failed to fetch order", e);
+          FOOD_DB = { "Network Error": DEFAULT_FOOD };
+          state.selectedFood = "Network Error";
+        }
+      } else {
+        FOOD_DB = { "No Order Selected": DEFAULT_FOOD };
+        state.selectedFood = "No Order Selected";
+      }
+      updateUI();
+    }
+    
+    init();
   </script>
 </body>
 </html>

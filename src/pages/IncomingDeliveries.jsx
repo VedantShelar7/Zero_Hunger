@@ -61,9 +61,10 @@ export default function IncomingDeliveries() {
             {selectedOrder && selectedOrder.status !== 'Delivered' && (
               <button 
                 onClick={simulateNextStatus}
-                className="bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/20 transition-colors"
+                className="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-bold shadow-md hover:bg-primary/90 transition-all flex items-center gap-2"
               >
-                Simulate Status Update
+                <span className="material-symbols-outlined text-[18px]">fast_forward</span>
+                Simulate Next Status
               </button>
             )}
           </div>
@@ -121,7 +122,7 @@ export default function IncomingDeliveries() {
               {/* Order Details Card */}
               <div className="bg-slate-50 rounded-xl p-6 border border-slate-100 flex flex-col sm:flex-row gap-6">
                 <div className="w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0">
-                  <img src={selectedOrder.img || 'https://via.placeholder.com/300?text=Food'} alt={selectedOrder.food} className="w-full h-full object-cover" />
+                  <img src={selectedOrder.img || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80'} alt={selectedOrder.food} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
