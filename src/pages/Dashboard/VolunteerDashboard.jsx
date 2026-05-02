@@ -106,16 +106,16 @@ export default function VolunteerDashboard() {
   };
 
   const updateDeliveryStatus = async () => {
+    // Open Google Maps synchronously first to bypass browser popup blockers
+    const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(assignedOrder.pickupLocation)}&destination=${encodeURIComponent(assignedOrder.dropLocation)}`;
+    window.open(mapsUrl, '_blank');
+
     if (assignedOrder.id !== 'mock-123') {
       try {
         await api.updateOrderStatus(assignedOrder.id, 'Out for Delivery');
       } catch (err) { console.error(err); }
     }
     setAssignedOrder(prev => ({ ...prev, status: 'Out for Delivery' }));
-    
-    // Open Google Maps automatically
-    const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(assignedOrder.pickupLocation)}&destination=${encodeURIComponent(assignedOrder.dropLocation)}`;
-    window.open(mapsUrl, '_blank');
   };
 
   return (
