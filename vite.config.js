@@ -25,6 +25,7 @@ export default defineConfig({
         volunteer_fleet: resolve(__dirname, 'Volunteer_Fleet.html'),
         volunteer_registration: resolve(__dirname, 'Volunteer_Registration.html'),
         zone_dispatch: resolve(__dirname, 'Zone_Dispatch.html'),
+        tero: resolve(__dirname, 'Tero.html'),
       },
     },
   },
