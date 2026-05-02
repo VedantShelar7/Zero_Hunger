@@ -112,6 +112,10 @@ export default function VolunteerDashboard() {
       } catch (err) { console.error(err); }
     }
     setAssignedOrder(prev => ({ ...prev, status: 'Out for Delivery' }));
+    
+    // Open Google Maps automatically
+    const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(assignedOrder.pickupLocation)}&destination=${encodeURIComponent(assignedOrder.dropLocation)}`;
+    window.open(mapsUrl, '_blank');
   };
 
   return (
@@ -181,82 +185,92 @@ export default function VolunteerDashboard() {
               Our CNN (Convolutional Neural Network) model analyzes visual features like color and texture to determine whether food is fresh and safe before transit.
             </p>
 
-            <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50 relative overflow-hidden">
-              
-              {aiStatus === 'idle' && !uploadedImage && (
-                <div className="p-8 text-center flex flex-col items-center">
-                  {errorMessage && (
-                    <div className="mb-4 text-red-500 font-semibold bg-red-50 p-3 rounded-lg border border-red-200 w-full text-sm">
-                      <span className="material-symbols-outlined align-middle mr-1 text-lg">error</span>
-                      {errorMessage}
-                    </div>
-                  )}
-                  <span className="material-symbols-outlined text-4xl text-slate-300 mb-4">photo_camera</span>
-                  <p className="text-slate-600 font-medium mb-4">Take a photo of the surplus to verify freshness.</p>
-                  <label className="bg-primary text-white font-bold px-6 py-3 rounded-lg hover:bg-primary-container transition-colors cursor-pointer flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[20px]">upload</span>
-                    Upload Image
-                    <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
-                  </label>
-                </div>
-              )}
-
-              {uploadedImage && (
-                <div className="w-full h-full relative group">
-                  <img ref={imageRef} src={uploadedImage} alt="Food to verify" className="w-full h-full object-cover" />
+            {assignedOrder.status !== 'Out for Delivery' ? (
+              <>
+                <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50 relative overflow-hidden">
                   
-                  {aiStatus === 'scanning' && (
-                    <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center text-white p-6">
-                      <span className="material-symbols-outlined text-5xl animate-spin text-primary mb-4">refresh</span>
-                      <h4 className="font-bold text-lg mb-2">Analyzing Visual Features...</h4>
-                      <p className="text-sm text-slate-300 text-center">Checking color integrity and surface texture for spoilage indicators.</p>
-                      
-                      <div className="w-full max-w-xs bg-slate-700 h-2 rounded-full mt-6 overflow-hidden">
-                        <div className="bg-primary h-full w-full origin-left animate-[pulse_2s_ease-in-out_infinite]"></div>
-                      </div>
+                  {aiStatus === 'idle' && !uploadedImage && (
+                    <div className="p-8 text-center flex flex-col items-center">
+                      {errorMessage && (
+                        <div className="mb-4 text-red-500 font-semibold bg-red-50 p-3 rounded-lg border border-red-200 w-full text-sm">
+                          <span className="material-symbols-outlined align-middle mr-1 text-lg">error</span>
+                          {errorMessage}
+                        </div>
+                      )}
+                      <span className="material-symbols-outlined text-4xl text-slate-300 mb-4">photo_camera</span>
+                      <p className="text-slate-600 font-medium mb-4">Take a photo of the surplus to verify freshness.</p>
+                      <label className="bg-primary text-white font-bold px-6 py-3 rounded-lg hover:bg-primary-container transition-colors cursor-pointer flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[20px]">upload</span>
+                        Upload Image
+                        <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                      </label>
                     </div>
                   )}
 
-                  {aiStatus === 'complete' && (
-                    <div className="absolute inset-0 bg-slate-900/80 p-6 flex flex-col">
-                      <div className="flex-1 flex flex-col items-center justify-center text-center">
-                        <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mb-4">
-                          <span className="material-symbols-outlined text-3xl font-bold">check</span>
+                  {uploadedImage && (
+                    <div className="w-full h-full relative group">
+                      <img ref={imageRef} src={uploadedImage} alt="Food to verify" className="w-full h-full object-cover" />
+                      
+                      {aiStatus === 'scanning' && (
+                        <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center text-white p-6">
+                          <span className="material-symbols-outlined text-5xl animate-spin text-primary mb-4">refresh</span>
+                          <h4 className="font-bold text-lg mb-2">Analyzing Visual Features...</h4>
+                          <p className="text-sm text-slate-300 text-center">Checking color integrity and surface texture for spoilage indicators.</p>
+                          
+                          <div className="w-full max-w-xs bg-slate-700 h-2 rounded-full mt-6 overflow-hidden">
+                            <div className="bg-primary h-full w-full origin-left animate-[pulse_2s_ease-in-out_infinite]"></div>
+                          </div>
                         </div>
-                        <h4 className="font-bold text-2xl text-white mb-1">{verificationResult.verdict}</h4>
-                        <p className="text-green-400 font-bold mb-6">TRL Score: {verificationResult.trlScore}</p>
+                      )}
 
-                        <div className="w-full bg-slate-800/80 rounded-xl p-4 text-left border border-slate-700 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-slate-400 text-sm">Color Analysis</span>
-                            <span className="text-white text-sm font-semibold">{verificationResult.colorCheck}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-slate-400 text-sm">Texture Scan</span>
-                            <span className="text-white text-sm font-semibold">{verificationResult.textureCheck}</span>
+                      {aiStatus === 'complete' && (
+                        <div className="absolute inset-0 bg-slate-900/80 p-6 flex flex-col">
+                          <div className="flex-1 flex flex-col items-center justify-center text-center">
+                            <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mb-4">
+                              <span className="material-symbols-outlined text-3xl font-bold">check</span>
+                            </div>
+                            <h4 className="font-bold text-2xl text-white mb-1">{verificationResult.verdict}</h4>
+                            <p className="text-green-400 font-bold mb-6">TRL Score: {verificationResult.trlScore}</p>
+
+                            <div className="w-full bg-slate-800/80 rounded-xl p-4 text-left border border-slate-700 space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="text-slate-400 text-sm">Color Analysis</span>
+                                <span className="text-white text-sm font-semibold">{verificationResult.colorCheck}</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="text-slate-400 text-sm">Texture Scan</span>
+                                <span className="text-white text-sm font-semibold">{verificationResult.textureCheck}</span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
 
-            {aiStatus === 'complete' && assignedOrder.status !== 'Out for Delivery' && (
-              <button 
-                onClick={updateDeliveryStatus}
-                className="mt-6 bg-[#007751] text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
-              >
-                Start Delivery Route
-                <span className="material-symbols-outlined">route</span>
-              </button>
-            )}
-
-            {assignedOrder.status === 'Out for Delivery' && (
-              <div className="mt-6 bg-green-50 text-green-800 p-4 rounded-xl font-bold text-center flex items-center justify-center gap-2 border border-green-200">
-                <span className="material-symbols-outlined">check_circle</span>
-                You are currently en route!
+                {aiStatus === 'complete' && (
+                  <button 
+                    onClick={updateDeliveryStatus}
+                    className="mt-6 bg-[#007751] text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                  >
+                    Start Delivery Route
+                    <span className="material-symbols-outlined">route</span>
+                  </button>
+                )}
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-green-50 rounded-xl border border-green-200 shadow-inner">
+                <span className="material-symbols-outlined text-6xl text-green-500 mb-4 animate-bounce">local_shipping</span>
+                <h4 className="text-2xl font-bold text-green-800 mb-2">Delivery in Progress</h4>
+                <p className="text-green-600 mb-8 font-medium">Food has been verified and is currently en route to the distribution center.</p>
+                <button 
+                  onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(assignedOrder.pickupLocation)}&destination=${encodeURIComponent(assignedOrder.dropLocation)}`, '_blank')}
+                  className="bg-[#007751] text-white px-8 py-4 w-full rounded-xl font-bold text-lg shadow-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span className="material-symbols-outlined">map</span>
+                  Open Route in Google Maps
+                </button>
               </div>
             )}
           </div>
