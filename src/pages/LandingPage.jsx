@@ -82,22 +82,12 @@ export default function LandingPage() {
         <FloatingIcon icon={Heart} x="75%" y="80%" delay={2} size={28} />
         <FloatingIcon icon={Droplets} x="15%" y="70%" delay={0.5} size={36} />
         
-        {/* Animated Gradient Orbs */}
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute -top-24 -left-24 w-96 h-96 bg-[#0d7377]/5 blur-[120px] rounded-full"
+        {/* Static Gradient Orbs (Animations removed to fix scroll lag) */}
+        <div 
+          className="absolute -top-24 -left-24 w-96 h-96 bg-[#0d7377]/10 blur-[120px] rounded-full"
         />
-        <motion.div 
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            rotate: [0, -90, 0],
-          }}
-          transition={{ duration: 25, repeat: Infinity }}
-          className="absolute top-1/2 -right-24 w-[500px] h-[500px] bg-[#fea619]/5 blur-[150px] rounded-full"
+        <div 
+          className="absolute top-1/2 -right-24 w-[500px] h-[500px] bg-[#fea619]/10 blur-[150px] rounded-full"
         />
       </div>
 
@@ -117,10 +107,17 @@ export default function LandingPage() {
           
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
             {['Solution', 'Impact', 'Technology', 'Network'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-[#0d7377] transition-colors relative group">
+              <button 
+                key={item} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+                }} 
+                className="hover:text-[#0d7377] transition-colors relative group"
+              >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0d7377] transition-all group-hover:w-full" />
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -144,7 +141,7 @@ export default function LandingPage() {
         <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
           <motion.div
             style={{ y: textY, opacity }}
-            className="max-w-4xl mx-auto"
+            className="max-w-4xl mx-auto will-change-transform"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
