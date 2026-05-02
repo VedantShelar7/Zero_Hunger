@@ -77,7 +77,7 @@ export default function Login() {
           <div className="mb-auto">
             <div className="flex items-center gap-3 mb-12">
               <span className="material-symbols-outlined text-4xl text-white">volunteer_activism</span>
-              <span className="text-2xl font-bold text-white tracking-tight">ZeroHunger</span>
+              <span className="text-2xl font-bold text-white tracking-tight">Food Sahaya</span>
             </div>
             <h1 className="text-5xl font-black text-white max-w-md leading-tight tracking-tighter">
               {isSignup ? "Start your impact journey." : "Welcome back to the movement."}

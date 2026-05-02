@@ -1,4 +1,4 @@
-/* ZeroHunger - Page init logic. Requires trl_engine.js */
+/* Food Sahaya - Page init logic. Requires trl_engine.js */
 (function(){
 function waitReady(fn){if(window._trlReady)fn();else document.addEventListener('trl-ready',fn);}
 

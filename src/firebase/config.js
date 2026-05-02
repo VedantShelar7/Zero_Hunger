@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 /**
  * FIREBASE CONFIGURATION GUIDE
  * 1. Go to https://console.firebase.google.com/
- * 2. Create a project named "Zero Hunger"
+ * 2. Create a project named "Food Sahaya"
  * 3. Add a "Web App" to get your config object
  * 4. Replace the values below with your actual keys
  */

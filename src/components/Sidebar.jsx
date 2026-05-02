@@ -44,7 +44,7 @@ export default function Sidebar() {
           <span className="material-symbols-outlined text-on-primary-fixed-variant" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
         </div>
         <div>
-          <h1 className="text-xl font-black text-slate-900 dark:text-white leading-tight">ZeroHunger</h1>
+          <h1 className="text-xl font-black text-slate-900 dark:text-white leading-tight">Food Sahaya</h1>
           <p className="text-xs text-slate-500">Food Surplus Platform</p>
         </div>
       </div>

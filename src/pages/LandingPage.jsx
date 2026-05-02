@@ -102,7 +102,7 @@ export default function LandingPage() {
             <div className="w-10 h-10 bg-[#0d7377] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#0d7377]/20 group-hover:rotate-12 transition-transform">
               <Zap size={24} fill="currentColor" />
             </div>
-            <span className="text-2xl font-black text-slate-900 tracking-tighter">ZeroHunger</span>
+            <span className="text-2xl font-black text-slate-900 tracking-tighter">Food Sahaya</span>
           </motion.div>
           
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
@@ -205,7 +205,7 @@ export default function LandingPage() {
             >
               <img 
                 src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto=format&fit=crop" 
-                alt="ZeroHunger Dashboard"
+                alt="Food Sahaya Dashboard"
                 className="w-full h-auto object-cover"
               />
               {/* Overlay Glass Stats */}
@@ -397,7 +397,7 @@ export default function LandingPage() {
             <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
               <Zap size={18} fill="currentColor" />
             </div>
-            <span className="text-xl font-black text-slate-900 tracking-tighter">ZeroHunger</span>
+            <span className="text-xl font-black text-slate-900 tracking-tighter">Food Sahaya</span>
           </div>
           
           <div className="flex gap-8 text-sm font-bold text-slate-500">
@@ -406,7 +406,7 @@ export default function LandingPage() {
             <a href="#" className="hover:text-slate-900 transition-colors">Contact</a>
           </div>
           
-          <p className="text-sm text-slate-400">© 2026 ZeroHunger. All rights reserved.</p>
+          <p className="text-sm text-slate-400">© 2026 Food Sahaya. All rights reserved.</p>
         </div>
       </footer>
     </div>

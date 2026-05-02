@@ -6,7 +6,7 @@ export default function Analytics() {
       <div className="mb-10">
         <h2 className="text-3xl font-bold text-[#141b2b]">Platform Analytics</h2>
         <p className="text-[#3e4949] mt-2 max-w-2xl">
-          Comprehensive performance metrics for the ZeroHunger platform. Monitor donation trends, donor engagement, and overall impact in the Koramangala zone.
+          Comprehensive performance metrics for the Food Sahaya platform. Monitor donation trends, donor engagement, and overall impact in the Koramangala zone.
         </p>
       </div>
 

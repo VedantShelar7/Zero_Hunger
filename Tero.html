@@ -350,7 +350,7 @@
             <div class="font-mono text-xs text-slate-600 space-y-1">
               <p>[AUTO-GENERATED AI MESSAGE]</p>
               <p id="vc-msg-action" class="text-slate-900 font-bold my-2">✅ ACCEPT — Food Verified Safe</p>
-              <p>ZeroHunger Verification ID: <span class="text-slate-900 font-semibold" id="vc-id"></span></p>
+              <p>Food Sahaya Verification ID: <span class="text-slate-900 font-semibold" id="vc-id"></span></p>
               <p>Food Item: <span class="text-slate-900 font-semibold" id="vc-food"></span></p>
               <p>TRL Score: <span class="text-slate-900 font-semibold" id="vc-score2"></span></p>
               <p>Verified at: <span class="text-slate-900 font-semibold" id="vc-time"></span></p>
@@ -823,7 +823,7 @@
         v.msgAction.style.color = '#EF4444';
         
         const reason = res.whoTriggered ? "WHO 4-hour danger zone rule exceeded." : "TRL score fell below safe threshold.";
-        v.rec.innerHTML = `<br/>This batch has been flagged as unsafe by the ZeroHunger TRL Engine.<br/>Reason: ${reason}<br/>Action: Do not accept. Advise donor to discard safely.`;
+        v.rec.innerHTML = `<br/>This batch has been flagged as unsafe by the Food Sahaya TRL Engine.<br/>Reason: ${reason}<br/>Action: Do not accept. Advise donor to discard safely.`;
         
         v.btn.innerText = '❌ Notify NGO - Reject';
         v.btn.className = 'flex-1 bg-[#EF4444] text-white font-bold py-3 rounded-lg hover:bg-[#dc2626] transition shadow-md';

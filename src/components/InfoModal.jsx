@@ -9,7 +9,7 @@ export default function InfoModal({ onClose }) {
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
               <span className="material-symbols-outlined">info</span>
             </div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">About ZeroHunger</h2>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">About Food Sahaya</h2>
           </div>
           <button 
             onClick={onClose}
@@ -23,7 +23,7 @@ export default function InfoModal({ onClose }) {
           <div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-2">Platform Goal</h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              ZeroHunger connects surplus food from restaurants and supermarkets with local NGOs in real-time. 
+              Food Sahaya connects surplus food from restaurants and supermarkets with local NGOs in real-time. 
               Our mission is to eliminate food waste while addressing hunger through rapid, tech-enabled logistics.
             </p>
           </div>
