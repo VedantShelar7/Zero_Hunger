@@ -851,7 +851,8 @@
             const originalText = v.btn.innerText;
             
             v.btn.innerText = 'Processing...';
-            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/ngo-status`, {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const response = await fetch(`${API_URL}/orders/${orderId}/ngo-status`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ action })
