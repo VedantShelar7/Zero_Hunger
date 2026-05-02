@@ -50,6 +50,7 @@ const Order = mongoose.model('Order', orderSchema);
 const allowedOrigins = [
   'https://zerohunger-91139.web.app',
   'https://zerohunger-91139.firebaseapp.com',
+  'https://stellular-kheer-be4b9d.netlify.app',
   'http://localhost:5173'
 ];
 
