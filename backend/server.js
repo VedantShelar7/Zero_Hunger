@@ -51,7 +51,9 @@ const allowedOrigins = [
   'https://zerohunger-91139.web.app',
   'https://zerohunger-91139.firebaseapp.com',
   'https://stellular-kheer-be1b9d.netlify.app',
-  'http://localhost:5173'
+  'https://stellular-kheer-be4b9d.netlify.app',
+  'http://localhost:5173',
+  'http://localhost:5174'
 ];
 
 app.use(cors({
